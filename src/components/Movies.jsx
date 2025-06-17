@@ -23,7 +23,6 @@ const Movies = () => {
   useEffect(() => {
     if (popularMovies.length > 0) {
       setFilteredMovies(popularMovies);
-      console.log("Setting initial filteredMovies:", popularMovies);
     }
   }, [popularMovies]);
 
@@ -37,9 +36,6 @@ const Movies = () => {
           const popularGenreIds = [28, 35, 18, 27, 16, 10749, 878]; 
           const selectedGenres = genres.filter(genre => popularGenreIds.includes(genre.id)).slice(0, 6);
           
-          console.log("Selected genres:", selectedGenres);
-          
-
           const genreData = {};
           
           await Promise.all(
@@ -68,16 +64,13 @@ const Movies = () => {
   useEffect(() => {
     const filterMoviesByGenre = async () => {
       if (selectedGenre === 'all') {
-        console.log("Setting filteredMovies to popularMovies:", popularMovies);
         setFilteredMovies(popularMovies);
         return;
       }
       
       try {
         const genreId = Number(selectedGenre);
-        console.log(`Fetching movies for genre ID: ${genreId}`);
         const movies = await getMoviesByGenre(genreId);
-        console.log("Filtered movies:", movies);
         setFilteredMovies(movies);
       } catch (err) {
         console.error("Error filtering by genre:", err);

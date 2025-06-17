@@ -31,7 +31,7 @@ const MovieRow = ({ title, movies, onSeeAllClick, onMovieClick, mediaType = 'mov
   return (
     <div 
       ref={rowRef} 
-      className="mt-10 movie-row opacity-100 md:opacity-0 transition-all duration-1000"
+      className="mt-4 movie-row opacity-100 md:opacity-0 transition-all duration-1000"
     >
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl md:text-2xl font-bold">{title}</h3>
@@ -44,7 +44,7 @@ const MovieRow = ({ title, movies, onSeeAllClick, onMovieClick, mediaType = 'mov
           </button>
         )}
       </div>
-      <div className="flex overflow-x-auto gap-4 pb-8 hide-scrollbar">
+      <div className="flex overflow-x-auto gap-4 pb-2 hide-scrollbar">
         {movies && movies.length > 0 ? (
           movies.map((movie) => (
             <MovieCard 

@@ -10,7 +10,6 @@ import Navbar from './components/Navbar'
 import { TMDBProvider } from './context/TMDBContext'
 import { WatchlistProvider } from './context/WatchlistContext'
 
-
 const TvShows = () => (
   <div className="bg-[#141414] min-h-screen text-white">
     <Navbar />

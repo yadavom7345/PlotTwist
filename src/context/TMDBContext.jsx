@@ -4,6 +4,10 @@ import React, { createContext, useState, useContext, useEffect, useCallback } fr
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
 
+// Debug API key (will be removed in production)
+console.log('API Key present:', !!API_KEY);
+console.log('API Key length:', API_KEY ? API_KEY.length : 0);
+
 // Create Context
 const TMDBContext = createContext();
 
@@ -21,6 +25,11 @@ export const TMDBProvider = ({ children }) => {
 
   // Fetch data from TMDB API
   const fetchFromTMDB = useCallback(async (endpoint, params = {}) => {
+    if (!API_KEY) {
+      console.error('API Key is missing. Environment variables:', import.meta.env);
+      throw new Error('TMDB API key is missing. Please add your API key to the .env file.');
+    }
+
     const queryParams = new URLSearchParams({
       api_key: API_KEY,
       ...params
@@ -30,7 +39,13 @@ export const TMDBProvider = ({ children }) => {
       const response = await fetch(`${BASE_URL}${endpoint}?${queryParams}`);
       
       if (!response.ok) {
-        throw new Error(`TMDB API Error: ${response.status} ${response.statusText}`);
+        if (response.status === 401) {
+          throw new Error('Invalid TMDB API key. Please check your API key in the .env file.');
+        } else if (response.status === 404) {
+          throw new Error('The requested resource was not found.');
+        } else {
+          throw new Error(`TMDB API Error: ${response.status} ${response.statusText}`);
+        }
       }
       
       return await response.json();
@@ -85,7 +100,15 @@ export const TMDBProvider = ({ children }) => {
         setGenres(genresData.genres);
         setIsLoading(false);
       } catch (err) {
-        setError("Failed to fetch movies data. Please try again later.");
+        let errorMessage = "Failed to fetch movies data. Please try again later.";
+        
+        if (err.message.includes('API key is missing')) {
+          errorMessage = "TMDB API key is missing. Please add your API key to the .env file.";
+        } else if (err.message.includes('Invalid TMDB API key')) {
+          errorMessage = "Invalid TMDB API key. Please check your API key in the .env file.";
+        }
+        
+        setError(errorMessage);
         setIsLoading(false);
         console.error("Error fetching initial data:", err);
       }
@@ -214,4 +237,4 @@ export const TMDBProvider = ({ children }) => {
   );
 };
 
-export default TMDBContext; 
+export default TMDBContext;

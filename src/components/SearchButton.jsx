@@ -7,7 +7,6 @@ const SearchButton = () => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Open with Cmd/Ctrl + K
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setOpen((prev) => !prev);
@@ -26,7 +25,6 @@ const SearchButton = () => {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
-
 
   useEffect(() => {
     const handleRouteChange = () => {
