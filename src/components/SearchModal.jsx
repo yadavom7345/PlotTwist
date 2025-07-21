@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Search, X, Film, Tv, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTMDB } from "../context/TMDBContext";
@@ -30,40 +30,37 @@ const SearchModal = ({ setOpen }) => {
     };
   };
 
-  const handleSearch = useCallback(
-    debounce(async (term) => {
-      if (!term.trim()) {
-        setSearchResults([]);
-        setIsSearching(false);
-        return;
-      }
+  const handleSearch = debounce(async (term) => {
+    if (!term.trim()) {
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
 
-      setIsSearching(true);
-      try {
-        let results;
-        
-        if (selectedType === "movie") {
-          results = await searchMovies(term);
-        } else if (selectedType === "tv") {
-          results = await searchTVShows(term);
-        } else {
-          results = await multiSearch(term);
-        }
-        
-        const filteredResults = results.filter(item => 
-          item.title.toLowerCase().startsWith(term.toLowerCase())
-        );
-        
-        setSearchResults(filteredResults.slice(0, 8));
-      } catch (error) {
-        console.error("Search error:", error);
-        setSearchResults([]);
-      } finally {
-        setIsSearching(false);
+    setIsSearching(true);
+    try {
+      let results;
+      
+      if (selectedType === "movie") {
+        results = await searchMovies(term);
+      } else if (selectedType === "tv") {
+        results = await searchTVShows(term);
+      } else {
+        results = await multiSearch(term);
       }
-    }, 1000), 
-    [searchMovies, searchTVShows, multiSearch, selectedType]
-  );
+      
+      const filteredResults = results.filter(item => 
+        item.title.toLowerCase().startsWith(term.toLowerCase())
+      );
+      
+      setSearchResults(filteredResults.slice(0, 8));
+    } catch (error) {
+      console.error("Search error:", error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
+  }, 1000);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -75,7 +72,7 @@ const SearchModal = ({ setOpen }) => {
     if (searchTerm.trim()) {
       handleSearch(searchTerm);
     }
-  }, [selectedType, handleSearch, searchTerm]);
+  }, [selectedType, searchTerm]);
 
   const handleItemClick = (item) => {
     const mediaType = item.mediaType || selectedType;

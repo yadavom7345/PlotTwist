@@ -32,7 +32,6 @@ const Movies = () => {
         setLoadingGenres(true);
         
         try {
-   
           const popularGenreIds = [28, 35, 18, 27, 16, 10749, 878]; 
           const selectedGenres = genres.filter(genre => popularGenreIds.includes(genre.id)).slice(0, 6);
           
@@ -43,7 +42,7 @@ const Movies = () => {
               const movies = await getMoviesByGenre(genre.id);
               genreData[genre.id] = {
                 name: genre.name,
-                movies: movies.slice(0, 10)  
+                movies: movies.slice(0, 10)
               };
             })
           );
@@ -128,9 +127,6 @@ const Movies = () => {
   }
 
 
-  console.log("Current filteredMovies:", filteredMovies);
-  console.log("Current popularMovies:", popularMovies);
-  
   return (
     <div className="bg-[#141414] min-h-screen text-white">
       <Navbar />
@@ -139,7 +135,6 @@ const Movies = () => {
         <div className="mb-12">
           <h1 className="text-4xl font-bold mb-8">Movies</h1>
           
-
           <div className="flex overflow-x-auto gap-2 mb-8 pb-2 hide-scrollbar">
             <button
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition whitespace-nowrap ${
@@ -162,7 +157,6 @@ const Movies = () => {
             ))}
           </div>
           
-
           <MovieRow 
             title={selectedGenre === 'all' ? "Popular Movies" : `${genres.find(g => g.id === selectedGenre)?.name || 'Filtered'} Movies`}
             movies={filteredMovies.slice(0, 12)}
@@ -170,7 +164,6 @@ const Movies = () => {
           />
         </div>
         
-
         {selectedGenre === 'all' && Object.keys(genreMovies).map(genreId => (
           <MovieRow 
             key={genreId}
@@ -182,7 +175,6 @@ const Movies = () => {
         ))}
       </div>
       
-
       <footer className="py-8 px-4 md:px-16 border-t border-gray-800">
         <div className="max-w-screen-xl mx-auto">
           <p className="text-gray-500 text-sm text-center">
@@ -191,7 +183,6 @@ const Movies = () => {
         </div>
       </footer>
       
-
       <style jsx global>{`
         .hide-scrollbar::-webkit-scrollbar {
           display: none;

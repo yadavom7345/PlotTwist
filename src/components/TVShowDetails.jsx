@@ -62,7 +62,6 @@ const TVShowDetails = () => {
           }));
         };
         
-
         const [showData, videos, credits, similar, recommended] = await Promise.all([
           fetchFromTMDB(`/tv/${id}`),
           fetchFromTMDB(`/tv/${id}/videos`),
@@ -71,7 +70,6 @@ const TVShowDetails = () => {
           fetchFromTMDB(`/tv/${id}/recommendations`)
         ]);
         
-
         const fullShowData = {
           ...showData,
           videos: videos.results,
@@ -87,7 +85,6 @@ const TVShowDetails = () => {
           setSeasons(showData.seasons);
         }
 
-        console.log("TV Show details:", fullShowData);
       } catch (err) {
         console.error("Error fetching TV show details:", err);
         setError("Failed to load TV show details. Please try again later.");
@@ -136,7 +133,6 @@ const TVShowDetails = () => {
     setToastMessage(message);
     setShowToast(true);
     
-
     setTimeout(() => {
       setShowToast(false);
     }, 3000);
@@ -147,9 +143,7 @@ const TVShowDetails = () => {
   };
 
   const handleShowClick = (showId) => {
-
     navigate(`/tv/${showId}`);
-
     window.scrollTo(0, 0);
   };
 
@@ -222,7 +216,6 @@ const TVShowDetails = () => {
     <div className="bg-[#141414] min-h-screen text-white overflow-x-hidden">
       <Navbar />
       
-
       <div className="relative h-[70vh] w-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-70 z-10"></div>
         <div className="absolute bottom-0 h-32 w-full bg-gradient-to-t from-[#141414] to-transparent z-10"></div>
@@ -234,7 +227,6 @@ const TVShowDetails = () => {
           }}
         ></div>
         
-
         <button 
           onClick={handleBackClick}
           className="absolute top-24 left-4 md:left-16 z-20 text-white hover:text-gray-300 flex items-center gap-1"
@@ -242,11 +234,9 @@ const TVShowDetails = () => {
           <ChevronLeft size={24} /> Back
         </button>
         
-
         <div className="absolute bottom-0 left-0 p-8 md:p-16 z-20 w-full md:w-2/3">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">{show.name}</h1>
           
-
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-6 text-sm">
             <div className="flex items-center text-yellow-500">
               <Star size={16} fill="currentColor" className="mr-1" />
@@ -263,7 +253,6 @@ const TVShowDetails = () => {
             {show.adult && <span className="px-2 py-0.5 bg-red-700 text-white rounded text-xs">18+</span>}
           </div>
           
-
           <div className="flex flex-wrap gap-2 mb-6">
             {show.genres.map(genre => (
               <span 
@@ -275,12 +264,10 @@ const TVShowDetails = () => {
             ))}
           </div>
           
-
           <p className="text-gray-300 mb-6 max-w-2xl line-clamp-3 md:line-clamp-none">
             {show.overview}
           </p>
           
-
           <div className="flex flex-wrap gap-3">
             {trailerUrl ? (
               <a 
@@ -320,14 +307,12 @@ const TVShowDetails = () => {
         </div>
       </div>
       
-
       <div className="px-4 md:px-16 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2">
             <h2 className="text-2xl font-semibold mb-4">About this show</h2>
             <p className="mb-6 text-gray-300">{show.overview}</p>
             
-
             {show.credits && show.credits.cast && (
               <CastSection 
                 cast={show.credits.cast}  
@@ -335,7 +320,6 @@ const TVShowDetails = () => {
               />
             )}
             
-
             {seasons.length > 0 && (
               <div className="mb-10">
                 <h3 className="text-2xl font-bold mb-4">Seasons</h3>
@@ -388,7 +372,6 @@ const TVShowDetails = () => {
             </div>
           </div>
           
-
           <div className="bg-gray-900 p-6 rounded-lg h-fit">
             <h3 className="text-lg font-medium mb-4">Details</h3>
             
@@ -440,7 +423,6 @@ const TVShowDetails = () => {
         </div>
       </div>
       
-
       <div className="px-4 md:px-16">
         {similarShows.length > 0 && (
           <RecommendationsSection
@@ -459,7 +441,6 @@ const TVShowDetails = () => {
         )}
       </div>
       
-
       {showToast && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-md shadow-lg flex items-center gap-2 z-50 animate-fade-in">
           {isInList ? <Check size={18} className="text-green-500" /> : <AlertCircle size={18} className="text-red-500" />}
@@ -467,7 +448,6 @@ const TVShowDetails = () => {
         </div>
       )}
       
-
       <footer className="py-8 px-4 md:px-16 border-t border-gray-800">
         <div className="max-w-screen-xl mx-auto">
           <p className="text-gray-500 text-sm text-center">
@@ -476,7 +456,6 @@ const TVShowDetails = () => {
         </div>
       </footer>
       
-
       <style jsx global>{`
         .hide-scrollbar::-webkit-scrollbar {
           display: none;

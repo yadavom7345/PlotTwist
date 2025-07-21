@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Play, Info, Github } from 'lucide-react'
-import Navbar from './Navbar'
-import MovieRow from './MovieRow'
-import { useTMDB } from '../context/TMDBContext'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Play, Info, Github } from 'lucide-react';
+import Navbar from './Navbar';
+import MovieRow from './MovieRow';
+import { useTMDB } from '../context/TMDBContext';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
@@ -26,10 +26,8 @@ const Home = () => {
     const fetchBannerMovies = async () => {
       if (popularMovies.length > 0) {
         try {
-          // Get the top 3 most popular movies
           const top3Movies = popularMovies.slice(0, 3);
           
-          // Fetch detailed information for each movie
           const detailedMovies = await Promise.all(
             top3Movies.map(async (movie) => {
               const details = await getMovieDetails(movie.id);
@@ -60,7 +58,7 @@ const Home = () => {
     
     const interval = setInterval(() => {
       setCurrentBannerIndex((prevIndex) => (prevIndex + 1) % featuredMovies.length);
-    }, 10000);
+    }, 5000);
     
     return () => clearInterval(interval);
   }, [featuredMovies]);
@@ -122,7 +120,6 @@ const Home = () => {
     );
   }
 
-
   const currentFeatured = featuredMovies[currentBannerIndex];
   const showBanner = featuredMovies.length > 0 && currentFeatured;
 
@@ -156,19 +153,13 @@ const Home = () => {
               <h2 className="text-5xl md:text-7xl font-bold mb-4 text-shadow">{currentFeatured.title}</h2>
             )}
             
-            <p className="text-gray-200 text-sm md:text-lg mb-6 max-w-2xl text-shadow-sm">
+            <p className="text-gray-200 text-sm md:text-lg mb-6 max-w-2xl text-shadow-sm font-light">
               {currentFeatured.description}
             </p>
             
             <div className="flex space-x-4">
               <button 
-                className="bg-white text-black hover:bg-opacity-80 px-8 py-3 rounded font-semibold flex items-center gap-2 transition-all duration-300 transform hover:scale-105"
-                onClick={() => handleMovieClick(currentFeatured.id)}
-              >
-                <Play size={20} fill="black" /> Play
-              </button>
-              <button 
-                className="bg-gray-500 bg-opacity-50 hover:bg-opacity-70 px-6 py-3 rounded font-medium flex items-center gap-2 transition-all duration-300"
+                className="bg-gray-500 bg-opacity-50 hover:bg-opacity-70 px-6 py-3 rounded font-semibold flex items-center gap-2 transition-all duration-300"
                 onClick={() => handleMovieClick(currentFeatured.id)}
               >
                 <Info size={20} /> More Info
@@ -224,42 +215,42 @@ const Home = () => {
         <div className="max-w-screen-xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start">
             <div className="mb-6 md:mb-0">
-              <h1 className="text-red-600 font-bold text-2xl mb-4">PLOTWIST</h1>
-              <p className="text-gray-500 text-sm max-w-md">
+              <h1 className="text-red-600 font-black text-2xl mb-4">PLOTWIST</h1>
+              <p className="text-gray-500 text-sm max-w-md font-light">
                 Discover movies and TV shows with a plot twist that will keep you on the edge of your seat.
               </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
               <div>
-                <h4 className="text-gray-300 font-medium mb-4">Navigation</h4>
-                <ul className="space-y-2 text-gray-500">
-                  <li><a href="#" className="hover:text-white transition-colors">Home</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Movies</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">TV Shows</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Watchlist</a></li>
-                </ul>
+                <h4 className="text-gray-300 font-semibold mb-4">Navigation</h4>
+                                  <ul className="space-y-2 text-gray-500">
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">Home</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">Movies</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">TV Shows</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">Watchlist</a></li>
+                  </ul>
               </div>
               <div>
-                <h4 className="text-gray-300 font-medium mb-4">Resources</h4>
-                <ul className="space-y-2 text-gray-500">
-                  <li><a href="#" className="hover:text-white transition-colors">About</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Supported Devices</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-                </ul>
+                <h4 className="text-gray-300 font-semibold mb-4">Resources</h4>
+                                  <ul className="space-y-2 text-gray-500">
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">About</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">Contact</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">Supported Devices</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">FAQ</a></li>
+                  </ul>
               </div>
               <div>
-                <h4 className="text-gray-300 font-medium mb-4">Legal</h4>
-                <ul className="space-y-2 text-gray-500">
-                  <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-                  <li><a href="#" className="hover:text-white transition-colors">Cookie Preferences</a></li>
-                </ul>
+                <h4 className="text-gray-300 font-semibold mb-4">Legal</h4>
+                                  <ul className="space-y-2 text-gray-500">
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">Privacy Policy</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">Terms of Service</a></li>
+                    <li><a href="#" className="hover:text-white transition-colors font-normal">Cookie Preferences</a></li>
+                  </ul>
               </div>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm">
+            <p className="text-gray-500 text-sm font-light">
               © 2023 PLOTWIST. All rights reserved. Data provided by TMDB.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
@@ -302,7 +293,7 @@ const Home = () => {
         }
       `}</style>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

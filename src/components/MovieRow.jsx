@@ -5,7 +5,6 @@ import MovieCard from './MovieCard';
 const MovieRow = ({ title, movies, onSeeAllClick, onMovieClick, mediaType = 'movie' }) => {
   const rowRef = useRef(null);
 
-
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -34,13 +33,13 @@ const MovieRow = ({ title, movies, onSeeAllClick, onMovieClick, mediaType = 'mov
       className="mt-4 movie-row opacity-100 md:opacity-0 transition-all duration-1000"
     >
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-xl md:text-2xl font-bold">{title}</h3>
+        <h3 className="text-xl md:text-2xl font-black">{title}</h3>
         {onSeeAllClick && (
           <button 
-            className="text-sm text-gray-400 hover:text-white flex items-center group cursor-pointer"
+            className="text-sm text-gray-400 flex items-center cursor-pointer font-medium"
             onClick={onSeeAllClick}
           >
-            See all <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            See all <ChevronRight size={16} />
           </button>
         )}
       </div>

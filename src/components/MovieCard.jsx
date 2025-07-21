@@ -30,67 +30,37 @@ const MovieCard = ({ id, title, matchPercentage, year, imageUrl, onClick, mediaT
     }
   };
 
-
-  const isImageValid = Boolean(imageUrl);
-  if (!isImageValid) {
-    console.log(`Movie ${title} (${id}) has no image URL`);
-  }
-
   const placeholderUrl = `https://via.placeholder.com/300x169/000000/FFFFFF?text=${encodeURIComponent(title || 'Movie')}`;
 
   return (
     <div 
-      className="flex-none w-[200px] md:w-[240px] relative overflow-hidden rounded-md group cursor-pointer border border-gray-800 bg-black"
+      className="flex-none w-[200px] md:w-[240px] relative overflow-visible rounded-md cursor-pointer border border-gray-800 bg-black transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:z-20 my-4"
       onClick={() => onClick && onClick(id)}
     >
-      <div className="aspect-video bg-gray-900">
+      <div className="aspect-[2/3] bg-gray-900">
         <img 
           src={imageUrl || placeholderUrl} 
           alt={`${title} poster`} 
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-contain"
           onError={(e) => {
             e.target.onerror = null; 
             e.target.src = placeholderUrl;
           }}
         />
       </div>
-      {/* Overlay: only play and watchlist buttons on hover */}
-      <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="flex space-x-2 mb-4">
-          <button 
-            className="bg-white text-black p-1 rounded-full hover:bg-white/90 transition-all"
-            onClick={handlePlayClick}
-            aria-label="Play"
-          >
-            <Play size={16} fill="black" />
-          </button>
-          <button 
-            className={`$${
-              isInList 
-                ? "bg-gray-700 border border-green-500" 
-                : "bg-gray-800/80 border border-gray-400"
-            } p-1 rounded-full hover:bg-gray-700 transition-all`}
-            onClick={handleWatchlistClick}
-            aria-label={isInList ? "Remove from watchlist" : "Add to watchlist"}
-          >
-            {isInList ? <Check size={16} className="text-green-500" /> : <Plus size={16} />}
-          </button>
-        </div>
-      </div>
-      {/* Info below the image, always visible */}
       <div className="px-3 py-2 min-h-[54px] flex flex-col justify-center">
-        <p className="text-sm md:text-base font-medium truncate mb-1 text-white">
+        <p className="text-sm md:text-base font-semibold truncate mb-1 text-white">
           {title || 'Untitled Movie'}
         </p>
         <div className="flex items-center text-xs text-gray-400">
-          <span className={`${matchPercentage >= 70 ? 'text-green-500' : matchPercentage >= 40 ? 'text-yellow-500' : 'text-red-500'} mr-2`}>
+          <span className={`${matchPercentage >= 70 ? 'text-green-500' : matchPercentage >= 40 ? 'text-yellow-500' : 'text-red-500'} mr-2 font-medium`}>
             {matchPercentage}% Match
           </span>
-          <span>{year || 'N/A'}</span>
+          <span className="font-normal">{year || 'N/A'}</span>
         </div>
       </div>
       {mediaType !== 'movie' && (
-        <div className="absolute top-2 right-2 bg-black/70 px-1.5 py-0.5 rounded text-[10px] font-medium">
+        <div className="absolute top-2 right-2 bg-black/70 px-1.5 py-0.5 rounded text-[10px] font-semibold">
           {mediaType === 'tv' ? 'TV' : mediaType.toUpperCase()}
         </div>
       )}

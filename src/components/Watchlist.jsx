@@ -39,8 +39,10 @@ const Watchlist = () => {
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl md:text-4xl font-bold">My Watchlist</h1>
           
+          {/* The filter and clear buttons are only shown if the watchlist is not empty. */}
           {watchlist.length > 0 && (
             <div className="flex items-center space-x-2">
+              {/* Filter buttons for 'all', 'movies', and 'tv shows'. */}
               <div className="bg-gray-900 rounded-lg p-1 flex">
                 <button
                   onClick={() => setFilter('all')}
@@ -68,6 +70,7 @@ const Watchlist = () => {
                 </button>
               </div>
               
+              {/* Button to clear the entire watchlist. */}
               <button
                 onClick={() => setShowConfirmDialog(true)}
                 className="bg-gray-800 hover:bg-gray-700 p-2 rounded-full"
@@ -79,6 +82,7 @@ const Watchlist = () => {
           )}
         </div>
         
+        {/* If the watchlist is empty, show a message and buttons to browse content. */}
         {watchlist.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24">
             <div className="bg-gray-800 p-6 rounded-full mb-6">
@@ -103,6 +107,7 @@ const Watchlist = () => {
               </button>
             </div>
           </div>
+        // If the watchlist is not empty, but the filter results in an empty list, show a message.
         ) : filteredWatchlist.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16">
             <Filter size={32} className="text-gray-400 mb-4" />
@@ -110,6 +115,7 @@ const Watchlist = () => {
               No {filter === 'movie' ? 'movies' : 'TV shows'} in your watchlist.
             </p>
           </div>
+        // Otherwise, display the filtered watchlist items in a grid.
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
             {filteredWatchlist.map(item => (
@@ -135,7 +141,7 @@ const Watchlist = () => {
                     </div>
                   )}
                   
-
+                  {/* Overlay with a remove button that appears on hover. */}
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100">
                     <button
                       onClick={(e) => handleRemove(e, item.id, item.mediaType)}
@@ -145,7 +151,7 @@ const Watchlist = () => {
                     </button>
                   </div>
                   
-
+                  {/* A small badge to indicate if the item is a movie or TV show. */}
                   <div className="absolute top-2 right-2 bg-gray-800 bg-opacity-80 px-2 py-1 rounded text-xs">
                     {item.mediaType === 'tv' ? 'TV' : 'Movie'}
                   </div>
@@ -170,7 +176,7 @@ const Watchlist = () => {
         )}
       </div>
       
-
+      {/* The confirmation dialog for clearing the watchlist. */}
       {showConfirmDialog && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-gray-900 rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
@@ -199,7 +205,7 @@ const Watchlist = () => {
         </div>
       )}
       
-
+      {/* The footer of the page. */}
       <footer className="py-8 px-4 md:px-16 border-t border-gray-800">
         <div className="max-w-screen-xl mx-auto">
           <p className="text-gray-500 text-sm text-center">
@@ -211,4 +217,5 @@ const Watchlist = () => {
   );
 };
 
-export default Watchlist; 
+export default Watchlist;
+ 
