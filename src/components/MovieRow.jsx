@@ -30,7 +30,7 @@ const MovieRow = ({ title, movies, onSeeAllClick, onMovieClick, mediaType = 'mov
   return (
     <div 
       ref={rowRef} 
-      className="mt-4 movie-row opacity-100 md:opacity-0 transition-all duration-1000"
+      className="mt-4 movie-row opacity-100 transition-all duration-1000"
     >
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-xl md:text-2xl font-black">{title}</h3>
